@@ -1,11 +1,11 @@
 package br.com.rasmoo.integranf.controller;
 
-import br.com.rasmoo.integranf.dto.UserTypeDTO;
 import br.com.rasmoo.integranf.models.UserType;
 import br.com.rasmoo.integranf.service.UserTypeService;
-import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -17,11 +17,6 @@ public class UserTypeController {
 
     public UserTypeController(UserTypeService userTypeService) {
         this.userTypeService = userTypeService;
-    }
-
-    @PostMapping
-    public ResponseEntity<UserType> create(@Valid @RequestBody UserTypeDTO userTypeDTO) {
-        return ResponseEntity.ok().body(userTypeService.create(userTypeDTO));
     }
 
     @GetMapping

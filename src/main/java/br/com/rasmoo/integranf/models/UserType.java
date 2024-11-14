@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,7 +16,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "users_type")
-public class UserType {
+public class UserType implements Serializable {
+
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

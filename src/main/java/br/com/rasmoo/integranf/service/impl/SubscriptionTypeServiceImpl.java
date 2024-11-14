@@ -8,6 +8,7 @@ import br.com.rasmoo.integranf.repository.SubscriptionTypeRepository;
 import br.com.rasmoo.integranf.service.SubscriptionTypeService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -29,4 +30,11 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
         });
         return subscriptionTypeRepository.save(SubscriptionTypeMapper.fromDtoToSubscriptionType(dto));
     }
+
+    @Override
+    public List<SubscriptionType> findAll() {
+        return subscriptionTypeRepository.findAll();
+    }
+
+
 }
