@@ -2,6 +2,7 @@ package br.com.rasmoo.integranf.exception.handler;
 
 import br.com.rasmoo.integranf.dto.error.ErrorResponseDto;
 import br.com.rasmoo.integranf.exception.BadRequestException;
+import br.com.rasmoo.integranf.exception.TokenException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,11 +33,11 @@ public class ResourceHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<ErrorResponseDto> illegalArgumentException(IllegalArgumentException e) {
         String errorMessage = e.getMessage();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(
                 ErrorResponseDto.builder()
                         .message(errorMessage)
-                        .httpStatus(HttpStatus.BAD_REQUEST)
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
+                        .httpStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+                        .statusCode(HttpStatus.UNPROCESSABLE_ENTITY.value())
                         .build()
         );
     }
@@ -59,11 +60,23 @@ public class ResourceHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ErrorResponseDto> dataIntegrityViolationException(DataIntegrityViolationException e) {
         String errorMessage = e.getMessage();
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
                 ErrorResponseDto.builder()
                         .message(errorMessage)
-                        .httpStatus(HttpStatus.BAD_REQUEST)
-                        .statusCode(HttpStatus.BAD_REQUEST.value())
+                        .httpStatus(HttpStatus.CONFLICT)
+                        .statusCode(HttpStatus.CONFLICT.value())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(TokenException.class)
+    public ResponseEntity<ErrorResponseDto> tokenException(TokenException e) {
+        String errorMessage = e.getMessage();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                ErrorResponseDto.builder()
+                        .message(errorMessage)
+                        .httpStatus(HttpStatus.UNAUTHORIZED)
+                        .statusCode(HttpStatus.UNAUTHORIZED.value())
                         .build()
         );
     }

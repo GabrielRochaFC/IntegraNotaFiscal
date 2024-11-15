@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +23,10 @@ import java.util.List;
 @Table(name = "users")
 public class User implements UserDetails {
 
+    private static final String ROLE_ADMIN = "ROLE_ADMIN";
+    private static final String ROLE_SUBSCRIBER = "ROLE_SUBSCRIBER";
+    private static final String ROLE_USER = "ROLE_USER";
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +42,7 @@ public class User implements UserDetails {
 
     private LocalDateTime createdAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name = "users_type_id")
     private UserType userType;
 
@@ -50,19 +53,19 @@ public class User implements UserDetails {
             // Comparação de enum usando ==, o que é mais eficiente e semântico
             if (userType.getUserTypeEnum() == UserTypeEnum.ADMIN) {
                 return List.of(
-                        new SimpleGrantedAuthority("ROLE_ADMIN"),
-                        new SimpleGrantedAuthority("ROLE_SUBSCRIBER"),
-                        new SimpleGrantedAuthority("ROLE_USER")
+                        new SimpleGrantedAuthority(ROLE_ADMIN),
+                        new SimpleGrantedAuthority(ROLE_SUBSCRIBER),
+                        new SimpleGrantedAuthority(ROLE_USER)
                 );
             } else if (userType.getUserTypeEnum() == UserTypeEnum.SUBSCRIBER) {
                 return List.of(
-                        new SimpleGrantedAuthority("ROLE_SUBSCRIBER"),
-                        new SimpleGrantedAuthority("ROLE_USER")
+                        new SimpleGrantedAuthority(ROLE_SUBSCRIBER),
+                        new SimpleGrantedAuthority(ROLE_USER)
                 );
             }
         }
-        // Caso userType seja null ou não seja ADMIN nem SUBSCRIBER, retorna ROLE_USER
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        // Caso userType seja null, ou não seja ADMIN e nem SUBSCRIBER, retorna ROLE_USER
+        return List.of(new SimpleGrantedAuthority(ROLE_USER));
     }
 
     @Override
