@@ -20,6 +20,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    private static final String ADMIN = "ADMIN";
+
     private final SecurityFilter securityFilter;
 
     @Autowired
@@ -37,8 +39,10 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user-type").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/subscription-type").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/subscription-type").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.GET, "/subscription-type").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user").hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.PATCH, "/user/*").hasRole(ADMIN)
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // Adicionando um filtro antes

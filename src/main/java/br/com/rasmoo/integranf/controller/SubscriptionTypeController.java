@@ -10,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/subscription-type")
 public class SubscriptionTypeController {
@@ -26,7 +28,7 @@ public class SubscriptionTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<SubscriptionType>> findAll(
+    public ResponseEntity<List<SubscriptionType>> findAll(
             @RequestParam final Integer page,
             @RequestParam final Integer size,
             @RequestParam(required = false) Boolean enabled) {
@@ -40,6 +42,6 @@ public class SubscriptionTypeController {
             result = subscriptionTypeService.findAllEnabled(pageable);
         }
 
-        return ResponseEntity.ok().body(result);
+        return ResponseEntity.ok().body(result.getContent());
     }
 }
