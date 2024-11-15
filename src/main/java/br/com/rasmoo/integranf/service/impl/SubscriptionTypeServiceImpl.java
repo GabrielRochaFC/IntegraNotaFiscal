@@ -6,9 +6,10 @@ import br.com.rasmoo.integranf.mapper.SubscriptionTypeMapper;
 import br.com.rasmoo.integranf.models.SubscriptionType;
 import br.com.rasmoo.integranf.repository.SubscriptionTypeRepository;
 import br.com.rasmoo.integranf.service.SubscriptionTypeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -32,8 +33,13 @@ public class SubscriptionTypeServiceImpl implements SubscriptionTypeService {
     }
 
     @Override
-    public List<SubscriptionType> findAll() {
-        return subscriptionTypeRepository.findAll();
+    public Page<SubscriptionType> findAll(Pageable pageable) {
+        return subscriptionTypeRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<SubscriptionType> findAllEnabled(Pageable pageable) {
+        return subscriptionTypeRepository.findAllByEnabledTrue(pageable);
     }
 
 

@@ -3,10 +3,12 @@ package br.com.rasmoo.integranf.controller;
 import br.com.rasmoo.integranf.dto.SubscriptionTypeDTO;
 import br.com.rasmoo.integranf.models.SubscriptionType;
 import br.com.rasmoo.integranf.service.SubscriptionTypeService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/subscription-type")
@@ -24,7 +26,20 @@ public class SubscriptionTypeController {
     }
 
     @GetMapping
-    public ResponseEntity<List<SubscriptionType>> findAll(){
-        return ResponseEntity.ok().body(subscriptionTypeService.findAll());
+    public ResponseEntity<Page<SubscriptionType>> findAll(
+            @RequestParam final Integer page,
+            @RequestParam final Integer size,
+            @RequestParam(required = false) Boolean enabled) {
+
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "type"));
+        Page<SubscriptionType> result;
+
+        if (enabled == null) {
+            result = subscriptionTypeService.findAll(pageable);
+        } else {
+            result = subscriptionTypeService.findAllEnabled(pageable);
+        }
+
+        return ResponseEntity.ok().body(result);
     }
 }
