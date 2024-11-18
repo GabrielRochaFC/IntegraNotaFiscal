@@ -44,6 +44,8 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/user").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PATCH, "/user/*").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.POST, "/subscriptions/select").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/gateway").hasRole(ADMIN)
+                        .requestMatchers(HttpMethod.GET, "/gateway").hasRole("SUBSCRIBER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // Adicionando um filtro antes

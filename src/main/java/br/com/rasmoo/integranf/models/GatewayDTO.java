@@ -1,6 +1,6 @@
 package br.com.rasmoo.integranf.models;
 
-import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,15 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
-@Entity
-@Table(name = "gateways")
-public class Gateway {
+public class GatewayDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @NotBlank(message = "Não pode ser nulo ou vazio")
     private String name;
 
     private String description;
