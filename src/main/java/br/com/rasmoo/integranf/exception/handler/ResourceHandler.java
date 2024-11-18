@@ -2,7 +2,9 @@ package br.com.rasmoo.integranf.exception.handler;
 
 import br.com.rasmoo.integranf.dto.error.ErrorResponseDto;
 import br.com.rasmoo.integranf.exception.BadRequestException;
+import br.com.rasmoo.integranf.exception.BusinessException;
 import br.com.rasmoo.integranf.exception.TokenException;
+import org.apache.tomcat.util.buf.ByteChunk;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +73,18 @@ public class ResourceHandler {
 
     @ExceptionHandler(TokenException.class)
     public ResponseEntity<ErrorResponseDto> tokenException(TokenException e) {
+        String errorMessage = e.getMessage();
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                ErrorResponseDto.builder()
+                        .message(errorMessage)
+                        .httpStatus(HttpStatus.UNAUTHORIZED)
+                        .statusCode(HttpStatus.UNAUTHORIZED.value())
+                        .build()
+        );
+    }
+
+    @ExceptionHandler(ByteChunk.BufferOverflowException.class)
+    public ResponseEntity<ErrorResponseDto> businessException(BusinessException e){
         String errorMessage = e.getMessage();
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
                 ErrorResponseDto.builder()

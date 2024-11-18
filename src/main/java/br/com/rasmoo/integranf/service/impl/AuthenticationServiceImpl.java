@@ -45,6 +45,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new BadRequestException("e-mail already exists");
         }
 
+        // Se o userTypeId for nulo, passo ele com o valor default como User. Apenas para fins didáticos.
+        if (data.getUserTypeId() == null) {
+            data.setUserTypeId(2L);
+        }
+
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.getPassword());
 
         var userTypeOpt = userTypeRepository.findById(data.getUserTypeId());
