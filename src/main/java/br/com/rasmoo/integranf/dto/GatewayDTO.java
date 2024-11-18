@@ -1,4 +1,4 @@
-package br.com.rasmoo.integranf.models;
+package br.com.rasmoo.integranf.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

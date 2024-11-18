@@ -1,7 +1,7 @@
 package br.com.rasmoo.integranf.mapper;
 
 import br.com.rasmoo.integranf.models.Gateway;
-import br.com.rasmoo.integranf.models.GatewayDTO;
+import br.com.rasmoo.integranf.dto.GatewayDTO;
 
 public class GatewayMapper {
 

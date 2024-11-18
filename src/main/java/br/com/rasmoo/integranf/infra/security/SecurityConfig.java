@@ -21,6 +21,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     private static final String ADMIN = "ADMIN";
+    private static final String USER = "USER";
+    private static final String SUBSCRIBER = "SUBSCRIBER";
 
     private final SecurityFilter securityFilter;
 
@@ -43,9 +45,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/subscription-type").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user").hasRole(ADMIN)
                         .requestMatchers(HttpMethod.PATCH, "/user/*").hasRole(ADMIN)
-                        .requestMatchers(HttpMethod.POST, "/subscriptions/select").hasRole("USER")
+                        .requestMatchers(HttpMethod.POST, "/subscriptions/select").hasRole(USER)
                         .requestMatchers(HttpMethod.POST, "/gateway").hasRole(ADMIN)
-                        .requestMatchers(HttpMethod.GET, "/gateway").hasRole("SUBSCRIBER")
+                        .requestMatchers(HttpMethod.GET, "/gateway").hasRole(SUBSCRIBER)
+                        .requestMatchers(HttpMethod.POST, "/gateway/integrations").hasRole(SUBSCRIBER)
+                        .requestMatchers(HttpMethod.GET, "/gateway/integrations").hasRole(SUBSCRIBER)
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class) // Adicionando um filtro antes
