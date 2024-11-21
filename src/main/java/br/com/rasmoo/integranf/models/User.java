@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     private LocalDateTime createdAt;
 
-    @ManyToOne()
+    @ManyToOne() // Deveria ter colocado o Fetch Type como Lazy!!!
     @JoinColumn(name = "users_type_id")
     private UserType userType;
 
@@ -50,7 +50,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Verificando se o userType é null para evitar NullPointerException
         if (userType != null && userType.getUserTypeEnum() != null) {
-            // Comparação de enum usando ==, o que é mais eficiente e semântico
             if (userType.getUserTypeEnum() == UserTypeEnum.ADMIN) {
                 return List.of(
                         new SimpleGrantedAuthority(ROLE_ADMIN),

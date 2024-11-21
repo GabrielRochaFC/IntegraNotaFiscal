@@ -18,8 +18,6 @@ import java.io.Serializable;
 @Table(name = "users_type")
 public class UserType implements Serializable {
 
-    
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
