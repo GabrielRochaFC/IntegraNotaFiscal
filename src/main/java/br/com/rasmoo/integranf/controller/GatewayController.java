@@ -38,18 +38,18 @@ public class GatewayController {
     }
 
     @PostMapping("/integrations")
-    public ResponseEntity<UserGateway> integrate(@Valid @RequestBody UserGatewayDTO dto,
-                                                @AuthenticationPrincipal User user) {
+    public ResponseEntity<UserGateway> integrate(
+            @Valid @RequestBody UserGatewayDTO dto,
+            @AuthenticationPrincipal User user) {
         return ResponseEntity.status(HttpStatus.CREATED).body(gatewayService.register(dto, user));
     }
 
     @GetMapping("/integrations")
-    public ResponseEntity<List<UserGatewayResponseDTO>> findAllIntegrated(@RequestParam final Integer page,
-                                                                          @RequestParam final Integer size,
-                                                                          @AuthenticationPrincipal User user) {
+    public ResponseEntity<List<UserGatewayResponseDTO>> findAllIntegrated(
+            @RequestParam final Integer page,
+            @RequestParam final Integer size,
+            @AuthenticationPrincipal User user) {
         Pageable pageable = PageRequest.of(page, size);
-
         return ResponseEntity.ok().body(gatewayService.findAllIntegrated(user, pageable).getContent());
-
     }
 }

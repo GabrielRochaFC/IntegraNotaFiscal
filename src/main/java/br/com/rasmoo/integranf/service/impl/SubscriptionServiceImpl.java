@@ -46,7 +46,9 @@ public class SubscriptionServiceImpl implements SubscriptionService {
         return createNewSubscription(subscriptionRequestDTO, user, subscriptionType);
 }
 
-    private Subscription updateExistingSubscription(Subscription existingSubscription, SubscriptionType subscriptionType) {
+    private Subscription updateExistingSubscription(
+            Subscription existingSubscription,
+            SubscriptionType subscriptionType) {
         existingSubscription.setSubscriptionType(subscriptionType);
         return subscriptionRepository.save(existingSubscription);
     }
@@ -66,7 +68,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private void updateUserTypeToSubscriber(User user) {
         UserType userType = userTypeRepository.findByUserTypeEnum(UserTypeEnum.SUBSCRIBER)
                 .orElseThrow(() -> new BadRequestException("UserType not found"));
-
         user.setUserType(userType);
         userRepository.save(user);
     }
@@ -79,7 +80,6 @@ public class SubscriptionServiceImpl implements SubscriptionService {
                 .user(user)
                 .subscriptionType(subscriptionType)
                 .build();
-
         return subscriptionRepository.save(subscription);
     }
 
