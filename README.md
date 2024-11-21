@@ -121,6 +121,10 @@ A aplicação fornece vários endpoints, conforme detalhado abaixo. O context pa
     - Query Params: `page`, `size`
     - Response: `[{"id": 1, "userId": 1, "gatewayId": 1, ...}, ...]`
 
+## Sobre o Projeto
+
+Esse projeto foi desenvolvido durante a **Mentoria Start da Rasmoo**. Saiba mais em [Rasmoo](https://rasmoo.com/).
+
 ## Contribuição
 
 1. Faça um fork do repositório.
