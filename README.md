@@ -1,55 +1,58 @@
 # Integra Nota Fiscal
 
-![Licença](https://img.shields.io/badge/licença-MIT-green)
+![License](https://img.shields.io/badge/license-MIT-green)
 ![Versão do Java](https://img.shields.io/badge/Java-21-blue)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 
-## Descrição
+## Description
 
-Este projeto é uma aplicação Jakarta EE desenvolvida com Spring Data JPA para persistência de dados, Lombok para reduzir o boilerplate, e Spring MVC para a criação de APIs RESTful. Ele está configurado para rodar com o Java 21 na porta 8083. Basicamente, esse projeto visa fazer a integração com gateways de pagamento para gerar notas fiscais de maneira mais fácil e eficiente.
+This project is a Jakarta EE application developed with Spring Data JPA for data persistence, Lombok to reduce
+boilerplate code, and Spring MVC for creating RESTful APIs. It is configured to run with Java 21 on port 8083.
+Essentially, this project aims to integrate with payment gateways to generate invoices in an easier and more efficient
+way.
 
-## Estrutura do Projeto
+## Project Structure
 
-- **Controller**: Contém os endpoints da API.
-- **Service**: Implementa a lógica de negócio do aplicativo.
-- **Repository**: Interface para a comunicação com o banco de dados.
-- **Model**: Contém as entidades do banco de dados.
+- **Controller**: Contains the API endpoints.
+- **Service**: Implements the business logic of the application.
+- **Repository**: Interface for database communication.
+- **Model**: Contains the database entities.
 
-## Requisitos
+## Requirements
 
 - Java 21
 - Maven 3.6+
-- Banco de Dados MySql
+- MySql Database
 
-## Instalação
+## Installation
 
-1. Clone o repositório:
+1. Clone the repository:
 
     ```sh
     git clone https://github.com/GabrielRochaFC/MentoriaRasmoo-IntegraNotaFiscal.git
     ```
 
-2. Navegue até o diretório do projeto:
+2. Navigate to the project directory:
 
     ```sh
     cd IntegraNf
     ```
 
-3. Compile o projeto usando Maven:
+3. Compile the project using Maven:
 
     ```sh
     mvn clean install
     ```
 
-4. Execute a aplicação:
+4. Run the application:
 
     ```sh
     java -jar target/IntegraNf-0.0.1-SNAPSHOT.jar
     ```
 
-## Configuração
+## Configuration
 
-Certifique-se de configurar as informações do banco de dados em `src/main/resources/application.properties` conforme o necessário:
+Make sure to configure the database information in `src/main/resources/application.properties` as needed:
 
 ```properties
 server.port=${SERVER_PORT}
@@ -60,87 +63,87 @@ spring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
 
 ## Endpoints
 
-A aplicação fornece vários endpoints, conforme detalhado abaixo. O context path é `/integranf`.
+The application provides various endpoints, detailed below. The context path is `/integranf`.
 
-### Autenticação
+### Authentication
 
-- **POST** `/auth/login`: Autenticação de usuários.
+- **POST** `/auth/login`: User authentication.
     - Request Body: `{"email": "user@example.com", "password": "password"}`
     - Response: `{"token": "jwt_token"}`
 
-- **POST** `/auth/register`: Registro de novos usuários.
+- **POST** `/auth/register`: Register new users.
     - Request Body: `{"email": "user@example.com", "password": "password", ...}`
     - Response: `{"id": 1, "email": "user@example.com", ...}`
 
-### Usuários
+### Users
 
-- **GET** `/user`: Lista todos os usuários paginados.
+- **GET** `/user`: Lists all paginated users.
     - Query Params: `page`, `size`
     - Response: `[{"id": 1, "name": "John Doe", ...}, ...]`
 
-- **PATCH** `/user/{id}`: Atualiza informações de um usuário.
-    - Path Param: `id` (ID do usuário)
+- **PATCH** `/user/{id}`: Updates user information.
+    - Path Param: `id` (User ID)
     - Request Body: `{"name": "New Name", ...}`
     - Response: `{"id": 1, "name": "New Name", ...}`
 
-### Tipos de Usuário
+### User Types
 
-- **GET** `/user-type`: Lista todos os tipos de usuário.
+- **GET** `/user-type`: Lists all user types.
     - Response: `[{"id": 1, "type": "Admin", ...}, ...]`
 
-### Tipos de Assinatura
+### Subscription Types
 
-- **POST** `/subscription-type`: Cria um novo tipo de assinatura.
+- **POST** `/subscription-type`: Creates a new subscription type.
     - Request Body: `{"type": "Premium", "duration": 12, ...}`
     - Response: `{"id": 1, "type": "Premium", ...}`
 
-- **GET** `/subscription-type`: Lista todos os tipos de assinatura paginados.
+- **GET** `/subscription-type`: Lists all paginated subscription types.
     - Query Params: `page`, `size`, `enabled`
     - Response: `[{"id": 1, "type": "Premium", ...}, ...]`
 
-### Assinaturas
+### Subscriptions
 
-- **POST** `/subscriptions/select`: Assigna uma assinatura a um usuário autenticado.
+- **POST** `/subscriptions/select`: Assigns a subscription to an authenticated user.
     - Request Body: `{"subscriptionTypeId": 1, ...}`
     - Response: `{"id": 1, "userId": 1, "subscriptionTypeId": 1, ...}`
 
 ### Gateways
 
-- **POST** `/gateway`: Cria um novo gateway.
+- **POST** `/gateway`: Creates a new gateway.
     - Request Body: `{"name": "Gateway1", ...}`
     - Response: `{"id": 1, "name": "Gateway1", ...}`
 
-- **GET** `/gateway`: Lista todos os gateways.
+- **GET** `/gateway`: Lists all gateways.
     - Response: `[{"id": 1, "name": "Gateway1", ...}, ...]`
 
-- **POST** `/gateway/integrations`: Registra uma integração de usuário com um gateway.
+- **POST** `/gateway/integrations`: Registers a user integration with a gateway.
     - Request Body: `{"userId": 1, "gatewayId": 1, ...}`
     - Response: `{"id": 1, "userId": 1, "gatewayId": 1, ...}`
 
-- **GET** `/gateway/integrations`: Lista todas as integrações de usuário com gateways, paginados.
+- **GET** `/gateway/integrations`: Lists all user integrations with gateways, paginated.
     - Query Params: `page`, `size`
     - Response: `[{"id": 1, "userId": 1, "gatewayId": 1, ...}, ...]`
 
-## Sobre o Projeto
+## About the Project
 
-Esse projeto foi desenvolvido durante a **Mentoria Start da Rasmoo**. Saiba mais em [Rasmoo](https://rasmoo.com/).
+This project was developed during the **Mentoria Start by Rasmoo**. Learn more at [Rasmoo]().
 
-## Contribuição
+## Contribution
 
-1. Faça um fork do repositório.
-2. Crie uma branch para sua feature (`git checkout -b feature/nova-feature`).
-3. Commit suas mudanças (`git commit -am 'Adiciona uma nova feature'`).
-4. Push para a branch (`git push origin feature/nova-feature`).
-5. Abra um Pull Request.
+1. Fork the repository.
+2. Create a new branch for your feature (`git checkout -b feature/new-feature`).
+3. Commit your changes (`git commit -am 'Add new feature'`).
+4. Push to the branch (`git push origin feature/new-feature`).
+5. Open a Pull Request.
 
-## Licença
+## License
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo LICENSE.md para detalhes.
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-## Contato
+## Contact
 
 - LinkedIn: [Gabriel Rocha](https://linkedin.com/in/gabriel-rocha-28ab8414b)
 
 ---
 
-Feito com ❤️ por [Gabriel Rocha](https://github.com/GabrielRochaFC)
+Made with ❤️ by [Gabriel Rocha](https://github.com/GabrielRochaFC)
