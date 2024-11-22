@@ -126,7 +126,7 @@ The application provides various endpoints, detailed below. The context path is 
 
 ## About the Project
 
-This project was developed during the **Mentoria Start by Rasmoo**. Learn more at [Rasmoo]().
+This project was developed during the **Mentoria Start by Rasmoo**. Learn more at [Rasmoo](https://rasmoo.com/).
 
 ## Contribution
 
